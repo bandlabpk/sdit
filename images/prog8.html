@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+   
+    <title>Document</title>
+    <script>
+      
+     
+
+
+
+     </script>
+
+</head>
+<body class="bg-primary">
+
+     <div class="row">
+        <div class="col-2">
+        
+           
+
+        </div>
+        <div class="col-3 m-5">
+          
+             <select name="" id="outputBox" size="10" class="w-100">
+
+             </select>
+            
+           
+            <br><br>
+            <label for="inputBox">Type Text:</label>
+            <input type="text" id="inputBox" size="8" class="form-control" autofocus>
+           
+            
+            <br>
+    
+            
+            
+         <!-- <button onclick="addText()" class="btn btn-danger">Add Text</button> -->
+            <br><br>
+            <!-- <button onclick="removeText()" class="btn btn-danger">Remove </button> -->
+               <input type="button" value="Add" class="btn-danger w-100" id="btn1">
+               <input type="button" value="removeText" class="btn-danger w-100" id="btn2">
+        </div>
+        <div class="col-2">
+
+        </div>
+        <div class="col-3 m-5">
+          <input type="text" id="outputBox1" readonly class="form-control">
+            
+           
+          <br><br>
+          <label for="inputBox1">Type Text:</label>
+          <input type="text" id="inputBox1" size="8" class="form-control" autofocus>
+         
+          
+          <br><br>
+          <button onclick="addText()" class="btn btn-danger">Add Text</button>
+          <br><br>
+          <button onclick="removeText()" class="btn btn-danger">Remove </button>
+
+        </div>
+        <div class="col-2">
+
+        </div>
+     </div>
+     <script>
+       document.getElementById("btn1").onclick=function addText() {
+          var inputBox = document.getElementById("inputBox").value;
+          var outputBox = document.getElementById("outputBox");
+    
+          if (inputBox !== "") {
+            // Append text to the output box and clear the input box
+             var c=createElement("option");
+             c=inputBox;
+             outputBox.add(c);
+           
+          }
+         
+         
+        }
+    
+        function removeText() {
+        
+
+    
+         /* // Get the selected text
+          var selectedText = outputBox.value.substring(outputBox.selectionStart, outputBox.selectionEnd);
+    
+          // Remove the selected text from the output box
+          outputBox.value = outputBox.value.replace(selectedText, "");
+    
+          // Clear selection
+          outputBox.selectionStart = outputBox.selectionEnd = 0;*/
+           // Get the text box element
+          var outputBox = document.getElementById("outputBox");
+
+          // Check if any text is selected
+          if (outputBox.selectionStart === outputBox.selectionEnd) {
+           // No text is selected
+         alert("Please select text before clicking Remove");
+          } else {
+       // Remove selected text
+        var selectedText = outputBox.value.substring(outputBox.selectionStart, outputBox.selectionEnd);
+        var newText = outputBox.value.replace(selectedText, '');
+        outputBox.value = newText;
+          }
+        }
+      </script>
+     
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    
+    
+</body>
+</html>

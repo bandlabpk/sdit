@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <title>Document</title>
+</head>
+<body style="background-color: blueviolet;">
+    <div class="container mt-5 text-center mb-3" style=" background-image: url(/images/The-Oberoi-Udaivilas-Udaipur-1.jpg); background-position: center center;">
+        <h1 style="color: white;" class="mb-3">Hotel Room Booking</h1><br><br>
+        <div class="row">
+           <div class="col-2">
+
+           </div>
+          <div class="col-4">
+            <form id="bookingForm">
+                <div class="form-group">
+                  <label for="startDate" style="color: white; font-size: 1.5rem;">From</label>
+                  <input type="date" class="form-control" id="startDate" required>
+                </div>
+
+          </div>
+          <div class="col-4">
+            <div class="form-group">
+                <label for="endDate" style="color: white; font-size: 1.5rem;">To</label>
+                <input type="date" class="form-control" id="endDate" required>
+              </div>
+
+          </div>
+           <div class="col-2">
+
+           </div>
+        </div>
+        <div class="row">
+            <div class="col">
+
+            </div>
+            <div class="col-4">
+                <div class="form-group">
+                    <label for="roomType" style="color: white; font-size: 1rem;">Room Type:</label>
+                    <select class="form-control" id="roomType" required>
+                      <option value="ac">AC Room</option>
+                      <option value="deluxe">Deluxe Room</option>
+                      <option value="none">Standard Room</option>
+                    </select>
+                  </div>
+
+            </div>
+            <div class="col-4">
+                <div class="form-group">
+                    <label for="numAdults" style="color: white; font-size: 1rem;">Number of Adults:</label>
+                    <input type="number" class="form-control" id="numAdults" min="1" required>
+                  </div>
+            
+                  <div class="form-group">
+                    <label for="numChildren" style="color: white; font-size: 1rem;">Number of Children:</label>
+                    <input type="number" class="form-control" id="numChildren" min="0" required>
+                  </div>
+
+            </div>
+            <div class="col-2">
+
+            </div>
+           
+            
+        </div>
+        <br><br><br>
+        <button type="button" class="btn btn-danger border white  btn btn-outline-light" onclick="calculateTotal()">Click here</button>
+
+
+        <!-- Bootstrap Modal for Summary and Support -->
+  <div class="modal fade" id="summaryModal" tabindex="-1" role="dialog" aria-labelledby="summaryModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="summaryModalLabel">Booking Summary</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" id="summaryContent">
+          <!-- Summary content will be added here dynamically -->
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" onclick="openSupportDialog()">Support</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function calculateTotal() {
+      const startDate = new Date(document.getElementById('startDate').value);
+      const endDate = new Date(document.getElementById('endDate').value);
+      const roomType = document.getElementById('roomType').value;
+      const numAdults = parseInt(document.getElementById('numAdults').value);
+      const numChildren = parseInt(document.getElementById('numChildren').value);
+
+      const numberOfDays = Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24));
+      
+      let costPerNight = 0;
+      switch (roomType) {
+        case 'ac':
+          costPerNight = 3000;
+          break;
+        case 'deluxe':
+          costPerNight = 2000;
+          break;
+        case 'none':
+          costPerNight = 1500;
+          break;
+      }
+
+      const baseCost = costPerNight * numberOfDays * (numAdults + numChildren);
+
+      // Assuming CGST and SGST are 9% each
+      const cgst = 0.05 * baseCost;
+      const sgst = 0.05 * baseCost;
+
+      const totalCost = baseCost + cgst + sgst;
+      const costPerMember = totalCost / (numAdults + numChildren);
+
+      // Display summary in modal
+      const summaryContent = `
+        <p>Check-in Date: ${startDate.toDateString()}</p>
+        <p>Check-out Date: ${endDate.toDateString()}</p>
+        <p>Room Type: ${roomType}</p>
+        <p>Number of Adults: ${numAdults}</p>
+        <p>Number of Children: ${numChildren}</p>
+        <p>Total Cost: $${totalCost.toFixed(2)}</p>
+        <p>CGST: $${cgst.toFixed(2)}</p>
+        <p>SGST: $${sgst.toFixed(2)}</p>
+        <p>Cost per member: $${costPerMember.toFixed(2)}</p>
+      `;
+
+      document.getElementById('summaryContent').innerHTML = summaryContent;
+      $('#summaryModal').modal('show');
+    }
+
+    function openSupportDialog() {
+      // You can customize the support dialog as needed
+      alert("For support, please contact our customer service.");
+    }
+  </script>
+
+  <!-- Bootstrap JS and Popper.js links -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+
+
+
+    </div>
+    
+</body>
+</html>

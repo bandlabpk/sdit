@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hotel Room Booking</title>
+  <!-- Bootstrap CSS link -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+
+  <div class="container mt-5">
+    <h1>Hotel Room Booking</h1>
+
+    <form id="bookingForm">
+      <div class="form-group">
+        <label for="startDate">Check-in Date:</label>
+        <input type="date" class="form-control" id="startDate" required>
+      </div>
+
+      <div class="form-group">
+        <label for="endDate">Check-out Date:</label>
+        <input type="date" class="form-control" id="endDate" required>
+      </div>
+
+      <div class="form-group">
+        <label for="roomType">Room Type:</label>
+        <select class="form-control" id="roomType" required>
+          <option value="ac">AC Room</option>
+          <option value="deluxe">Deluxe Room</option>
+          <option value="none">Standard Room</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="numAdults">Number of Adults:</label>
+        <input type="number" class="form-control" id="numAdults" min="1" required>
+      </div>
+
+      <div class="form-group">
+        <label for="numChildren">Number of Children:</label>
+        <input type="number" class="form-control" id="numChildren" min="0" required>
+      </div>
+
+      <button type="button" class="btn btn-primary" onclick="calculateTotal()">Calculate Total</button>
+
+      <p id="totalCost" class="mt-3">Total Cost: $0</p>
+    </form>
+  </div>
+
+  <script>
+    function calculateTotal() {
+      const startDate = new Date(document.getElementById('startDate').value);
+      const endDate = new Date(document.getElementById('endDate').value);
+      const roomType = document.getElementById('roomType').value;
+      const numAdults = parseInt(document.getElementById('numAdults').value);
+      const numChildren = parseInt(document.getElementById('numChildren').value);
+
+      const numberOfDays = Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24));
+      
+      let costPerNight = 0;
+      switch (roomType) {
+        case 'ac':
+          costPerNight = 150;
+          break;
+        case 'deluxe':
+          costPerNight = 200;
+          break;
+        case 'none':
+          costPerNight = 100;
+          break;
+      }
+
+      const baseCost = costPerNight * numberOfDays * (numAdults + numChildren);
+
+      // Assuming CGST and SGST are 9% each
+      const cgst = 0.09 * baseCost;
+      const sgst = 0.09 * baseCost;
+
+      const totalCost = baseCost + cgst + sgst;
+      const costPerMember = totalCost / (numAdults + numChildren);
+
+      document.getElementById('totalCost').innerHTML = `Total Cost: $${totalCost.toFixed(2)} <br> CGST: $${cgst.toFixed(2)} <br> SGST: $${sgst.toFixed(2)} <br> Cost per member: $${costPerMember.toFixed(2)}`;
+    }
+  </script>
+
+  <!-- Bootstrap JS and Popper.js links -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+</html>

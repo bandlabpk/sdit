@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    
+    <title>Document</title>
+</head>
+<body class="bg-primary">
+    <div class="row">
+        <div class="col-2"></div>
+        <div class="col-3" class="bg-success m-5">
+            <br>
+              <div id="container"  style="background-color: azure; size: 10;">
+                <!-- Container to hold added text -->
+                
+              </div>   
+          
+               <select id="selectBox" style="background-color: aqua;" size="10" class="w-100">
+                 <!-- Select box to hold added text --> 
+            </select--> 
+            
+        
+          
+           
+            <label for="textBox">Enter Text:</label>
+            <input type="text" id="textBox" autofocus autocomplete="off" size="8" class="form-control">
+            <br><br>
+        
+            <div>
+                <button onclick="addText()" class="form-control btn btn-danger">Add</button>
+            <br><br>
+            <button onclick="removeText()" class="form-control btn btn-danger">Remove</button>
+            </div>
+        </div>
+        <div class="col-2 m-5">
+             <!--Btn 5-->
+             <input type="button" value=">" id="btn5" class=" btn btn-outline-light w-100"><br><br>
+             <!--Btn 6-->
+            <input type="button" value=">>" id="btn6" class=" btn btn-outline-light w-100"> <br><br>
+             <!--Btn 7-->
+            <input type="button" value="<" id="btn7" class=" btn btn-outline-light w-100"><br><br>
+             <!--Btn 8-->
+            <input type="button" value="<<" id="btn8" class=" btn btn-outline-light w-100"><br><br>
+        </div>
+       
+        <div class="col-3 m-4">
+            <div id="container1"  style="background-color: azure; size: 10;">
+                <!-- Container to hold added text -->
+                
+              </div>   
+          
+               <select id="selectBox1" style="background-color: aqua;" size="10" class="w-100">
+                 <!-- Select box to hold added text --> 
+            </select--> 
+            
+        
+          
+           
+            <label for="textBox1">Enter Text:</label>
+            <input type="text" id="textBox1" autofocus autocomplete="off" size="8" class="form-control">
+            <br><br>
+        
+            <div>
+                <button onclick=" addText1()" class="form-control btn btn-danger ">Add</button><br><br>
+                <button onclick="removeText1()" class="form-control btn btn-danger">Remove</button>
+        </div>
+        <div class="col-2"></div>
+    </div>
+    <script>
+        // Array to store added text
+        var addedTexts = [];
+
+        function addText() {
+            var textBoxValue = document.getElementById('textBox').value;
+
+            // Check if the text is already added
+            if (addedTexts.includes(textBoxValue)) {
+                alert('This text is already added. Please enter a different text.');
+            } else {
+                // If not added, add it to the container, the array, and the select box
+                addedTexts.push(textBoxValue);
+
+                // Create a new div element
+                var newDiv = document.createElement('div');
+                newDiv.textContent = textBoxValue;
+
+                // Append the new div to the container
+                document.getElementById('container').appendChild(newDiv);
+
+                // Add the text as an option to the select box
+                var newOption = document.createElement('option');
+                newOption.value = textBoxValue;
+                newOption.text = textBoxValue;
+                document.getElementById('selectBox').add(newOption);
+
+                // Clear the text box
+                document.getElementById('textBox').value = '';
+               
+            }
+        }
+
+        function removeText() {
+            var selectedText = getSelectedText();
+
+            // Check if any text is selected
+            if (selectedText === null) {
+                alert('Please select a text to remove.');
+            } else {
+                // Remove the selected text from the array, the container, and the select box
+                var index = addedTexts.indexOf(selectedText);
+                if (index !== -1) {
+                    addedTexts.splice(index, 1);
+                }
+
+                // Remove the selected text from the container
+                var selectBox = document.getElementById('container');
+                selectBox.removeChild(selectBox.querySelector('.selected'));
+
+                // Remove the selected text from the select box
+                var selectBox = document.getElementById('selectBox');
+                var optionToRemove = Array.from(selectBox.options)
+                    .find(option => option.value === selectedText);
+                    selectBox.removeChild(optionToRemove);
+            }
+        }
+
+        function getSelectedText() {
+            // Get the selected text from the container
+            var selectedElement = document.querySelector('.selected');
+            return selectedElement ? selectedElement.textContent :null ;
+        }
+
+        // Add event listener to highlight selected text
+        document.getElementById('container').addEventListener('click', function (event) {
+            var selectedElements = document.querySelectorAll('.selected');
+
+            // Remove 'selected' class from all elements
+            selectedElements.forEach(function (element) {
+                element.classList.remove('selected');
+            });
+
+            // Add 'selected' class to the clicked element
+            if (event.target.tagName === 'DIV') {
+                event.target.classList.add('selected');
+            }
+        });
+    </script>
+
+
+
+
+    <script>
+         // Array to store added text
+         var addedTexts = [];
+
+function addText1() {
+    var textBoxValue = document.getElementById('textBox1').value;
+
+    // Check if the text is already added
+    if (addedTexts.includes(textBoxValue)) {
+        alert('This text is already added. Please enter a different text.');
+    } else {
+        // If not added, add it to the container, the array, and the select box
+        addedTexts.push(textBoxValue);
+
+        // Create a new div element
+        var newDiv = document.createElement('div');
+        newDiv.textContent = textBoxValue;
+
+        // Append the new div to the container
+        document.getElementById('container1').appendChild(newDiv);
+
+        // Add the text as an option to the select box
+        var newOption = document.createElement('option');
+        newOption.value = textBoxValue;
+        newOption.text = textBoxValue;
+        document.getElementById('selectBox1').add(newOption);
+
+        // Clear the text box
+        document.getElementById('textBox1').value = '';
+       
+    }
+}
+
+function removeText1() {
+    var selectedText = getSelectedText();
+
+    // Check if any text is selected
+    if (selectedText === null) {
+        alert('Please select a text to remove.');
+    } else {
+        // Remove the selected text from the array, the container, and the select box
+        var index = addedTexts.indexOf(selectedText);
+        if (index !== -1) {
+            addedTexts.splice(index, 1);
+        }
+
+        // Remove the selected text from the container
+        var selectBox = document.getElementById('container1');
+        selectBox.removeChild(selectBox.querySelector('.selected'));
+
+        // Remove the selected text from the select box
+        var selectBox = document.getElementById('selectBox1');
+        var optionToRemove = Array.from(selectBox.options)
+            .find(option => option.value === selectedText);
+            selectBox.removeChild(optionToRemove);
+    }
+}
+
+function getSelectedText() {
+    // Get the selected text from the container
+    var selectedElement = document.querySelector('.selected');
+    return selectedElement ? selectedElement.textContent :null ;
+}
+
+// Add event listener to highlight selected text
+document.getElementById('container1').addEventListener('click', function (event) {
+    var selectedElements = document.querySelectorAll('.selected');
+
+    // Remove 'selected' class from all elements
+    selectedElements.forEach(function (element) {
+        element.classList.remove('selected');
+    });
+
+    // Add 'selected' class to the clicked element
+    if (event.target.tagName === 'DIV') {
+        event.target.classList.add('selected');
+    }
+});
+    
+    // Copy the elements from lst1 to lst2
+
+    document.getElementById("btn5").onclick=function copy(){
+            var lst1=document.getElementById("selectBox");
+            var indx=lst1.selectedIndex;
+            if(indx == -1){
+                alert("value must selected");
+        }
+        else {
+                  
+                var val=lst1[indx].value;
+                var lst2=document.getElementById("selectBox1");   
+                var opt=document.createElement("option");
+                opt.text=val;
+                opt.value=val;
+                for (let i of lst2 )
+                if(i.text === lst1.value){
+                    var al_ext=true;
+                   alert("Value Existed")
+                }
+                if(!al_ext){
+                    lst2.add(opt);
+                }
+            }
+        }
+          // Move the elements from lst1 to lst2
+
+          document.getElementById("btn6").onclick=function Move(){
+            var lst1=document.getElementById("selectBox");
+            var indx=lst1.selectedIndex;
+            var val=lst1[indx].value;
+            var lst2=document.getElementById("selectBox1");
+            var opt=document.createElement("option");
+            opt.text=val;
+            opt.value=val;
+            for (let i of lst2 )
+                if(i.text === lst1.value){
+                    var al_ext=true;
+                   alert("Value Existed")
+                }
+                if(!al_ext){
+                    lst2.add(opt);
+                    lst1.remove(indx);
+                    
+                }
+          
+       }
+        // Copy the elements from lst2 to lst1
+
+        document.getElementById("btn7").onclick=function copy(){
+            var lst2=document.getElementById("selectBox1");
+            var indx=lst2.selectedIndex;
+            if(indx == -1){
+                alert("value must selected");
+            }
+            else{
+            var val=lst2[indx].value;
+            var lst1=document.getElementById("selectBox");
+            var opt=document.createElement("option");
+            opt.text=val;
+            opt.value=val;
+            for (let i of lst1 )
+                if(i.text === lst2.value){
+                    var al_ext=true;
+                   alert("Value Existed")
+                }
+                if(!al_ext){
+                    lst1.add(opt);
+                }
+           
+        }
+       }
+       document.getElementById("btn8").onclick=function Move(){
+            var lst2=document.getElementById("selectBox1");
+            var indx=lst2.selectedIndex;
+            var val=lst2[indx].value;
+            var lst1=document.getElementById("selectBox");
+            var opt=document.createElement("option");
+            opt.text=val;
+            opt.value=val;
+            for (let i of lst1 )
+                if(i.text === lst2.value){
+                    var al_ext=true;
+                   alert("Value Existed")
+                }
+                if(!al_ext){
+                    lst1.add(opt);
+                    lst2.remove(indx);
+                    
+                }
+       }
+
+
+
+
+
+    </script>
+
+
+
+
+
+   
+
+
+    
+</body>
+</html>

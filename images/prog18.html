@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Button Click Example</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <!-- Custom CSS -->
+  <style>
+    .container {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div>
+    <button class="btn btn-primary" onclick="transferText()">Button 1</button>
+    <button class="btn btn-danger" onclick="deleteText()">Button 2</button>
+  </div>
+
+  <div class="container1 container">
+    <label for="text1">Container 1 Text:</label>
+    <input type="text" id="text1" class="form-control">
+  </div>
+
+  <div class="container2 container">
+    <label for="text2">Container 2 Text:</label>
+    <input type="text" id="text2" class="form-control">
+  </div>
+</div>
+
+<!-- Bootstrap JS and Popper.js -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+<script>
+  let words = [];
+  let currentIndex = 0;
+
+  function transferText() {
+    const sourceText = document.getElementById('text1');
+    const targetText = document.getElementById('text2');
+
+    if (sourceText.value.trim() !== '') {
+      // Split text into words
+      words = sourceText.value.split(' ');
+
+      // Transfer one word at a time to targetText
+      if (currentIndex < words.length) {
+        targetText.value += words[currentIndex] + ' ';
+        currentIndex++;
+      }
+
+      // Clear sourceText if all words are transferred
+      if (currentIndex === words.length) {
+        sourceText.value = '';
+        currentIndex = 0;
+      }
+    }
+  }
+
+  function deleteText() {
+    const targetText = document.getElementById('text2');
+    // Clear the text in targetText
+    targetText.value = '';
+  }
+</script>
+
+</body>
+</html>

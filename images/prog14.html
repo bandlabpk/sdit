@@ -1,0 +1,110 @@
+Certainly! Here's a simple HTML page with two buttons ("Add" and "Remove"), a text box, and a select box. The "Add" button adds the text entered in the text box to both a container and a select box, and the "Remove" button removes the selected text from the container and select box. If the same text is entered again, it won't be added, and if no text is selected when clicking "Remove," it will raise an alert.
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add and Remove Text</title>
+</head>
+<body>
+
+    <label for="textBox">Enter Text:</label>
+    <input type="text" id="textBox">
+
+    <button onclick="addText()" >Add</button>
+    <button onclick="removeText()" >Remove</button>
+
+    <div id="container">
+        <!-- Container to hold added text -->
+    </div>
+
+    <select id="selectBox">
+        <!-- Select box to hold added text -->
+    </select>
+
+    <script>
+        // Array to store added text
+        var addedTexts = [];
+
+        function addText() {
+            var textBoxValue = document.getElementById('textBox').value;
+
+            // Check if the text is already added
+            if (addedTexts.includes(textBoxValue)) {
+                alert('This text is already added. Please enter a different text.');
+            } else {
+                // If not added, add it to the container, the array, and the select box
+                addedTexts.push(textBoxValue);
+
+                // Create a new div element
+                var newDiv = document.createElement('div');
+                newDiv.textContent = textBoxValue;
+
+                // Append the new div to the container
+                document.getElementById('container').appendChild(newDiv);
+
+                // Add the text as an option to the select box
+                var newOption = document.createElement('option');
+                newOption.value = textBoxValue;
+                newOption.text = textBoxValue;
+                document.getElementById('selectBox').add(newOption);
+
+                // Clear the text box
+                document.getElementById('textBox').value = '';
+            }
+        }
+
+        function removeText() {
+            var selectedText = getSelectedText();
+
+            // Check if any text is selected
+            if (selectedText === null) {
+                alert('Please select a text to remove.');
+            } else {
+                // Remove the selected text from the array, the container, and the select box
+                var index = addedTexts.indexOf(selectedText);
+                if (index !== -1) {
+                    addedTexts.splice(index, 1);
+                }
+
+                // Remove the selected text from the container
+                var container = document.getElementById('container');
+                container.removeChild(container.querySelector('.selected'));
+
+                // Remove the selected text from the select box
+                var selectBox = document.getElementById('selectBox');
+                var optionToRemove = Array.from(selectBox.options)
+                    .find(option => option.value === selectedText);
+                selectBox.removeChild(optionToRemove);
+            }
+        }
+
+        function getSelectedText() {
+            // Get the selected text from the container
+            var selectedElement = document.querySelector('.selected');
+            return selectedElement ? selectedElement.textContent : null;
+        }
+
+        // Add event listener to highlight selected text
+        document.getElementById('container').addEventListener('click', function (event) {
+            var selectedElements = document.querySelectorAll('.selected');
+
+            // Remove 'selected' class from all elements
+            selectedElements.forEach(function (element) {
+                element.classList.remove('selected');
+            });
+
+            // Add 'selected' class to the clicked element
+            if (event.target.tagName === 'DIV') {
+                event.target.classList.add('selected');
+            }
+        });
+    </script>
+
+</body>
+</html>
+```
+
+This example uses a simple JavaScript script to handle the logic. When adding text, it checks if the text is already added; if yes, it alerts the user. When removing text, it checks if any text is selected; if not, it raises an alert.

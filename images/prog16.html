@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    
+    <title>Document</title>
+</head>
+<body class="bg-primary">
+    <div class="row">
+        <div class="col-2"></div>
+        <div class="col-3" class="bg-success m-5">
+            <br>
+             <div id="container"  style="background-color: azure;">
+                <!-- Container to hold added text -->
+                
+            </div>
+            <select id="selectBox" style="background-color: aqua;" size="" class="w-100">
+                <!-- Select box to hold added text -->
+            </select>
+           
+            
+        
+          
+           
+            <label for="textBox">Enter Text:</label>
+            <input type="text" id="textBox" autofocus autocomplete="off" size="8" class="form-control">
+            <br><br>
+        
+            <div>
+                <button onclick="addText()" class="form-control btn btn-danger">Add</button>
+            <br><br>
+            <button onclick="removeText()" class="form-control btn btn-danger">Remove</button>
+            </div>
+        </div>
+        <div class="col-2"></div>
+        <div class="col-3"></div>
+        <div class="col-2"></div>
+    </div>
+    <script>
+        // Array to store added text
+        var addedTexts = [];
+
+        function addText() {
+            var textBoxValue = document.getElementById('textBox').value;
+
+            // Check if the text is already added
+            if (addedTexts.includes(textBoxValue)) {
+                alert('This text is already added. Please enter a different text.');
+            } else {
+                // If not added, add it to the container, the array, and the select box
+                addedTexts.push(textBoxValue);
+
+                // Create a new div element
+                var newDiv = document.createElement('div');
+                newDiv.textContent = textBoxValue;
+
+                // Append the new div to the container
+                document.getElementById('container').appendChild(newDiv);
+
+                // Add the text as an option to the select box
+                var newOption = document.createElement('option');
+                newOption.value = textBoxValue;
+                newOption.text = textBoxValue;
+                document.getElementById('selectBox').add(newOption);
+
+                // Clear the text box
+                document.getElementById('textBox').value = '';
+                focus("texbox");
+            }
+        }
+
+        function removeText() {
+            var selectedText = getSelectedText();
+
+            // Check if any text is selected
+            if (selectedText === null) {
+                alert('Please select a text to remove.');
+            } else {
+                // Remove the selected text from the array, the container, and the select box
+                var index = addedTexts.indexOf(selectedText);
+                if (index !== -1) {
+                    addedTexts.splice(index, 1);
+                }
+
+                // Remove the selected text from the container
+                var container = document.getElementById('container');
+                container.removeChild(container.querySelector('.selected'));
+
+                // Remove the selected text from the select box
+                var selectBox = document.getElementById('selectBox');
+                var optionToRemove = Array.from(selectBox.options)
+                    .find(option => option.value === selectedText);
+                selectBox.removeChild(optionToRemove);
+            }
+        }
+
+        function getSelectedText() {
+            // Get the selected text from the container
+            var selectedElement = document.querySelector('.selected');
+            return selectedElement ? selectedElement.textContent : null;
+        }
+
+        // Add event listener to highlight selected text
+        document.getElementById('container').addEventListener('click', function (event) {
+            var selectedElements = document.querySelectorAll('.selected');
+
+            // Remove 'selected' class from all elements
+            selectedElements.forEach(function (element) {
+                element.classList.remove('selected');
+            });
+
+            // Add 'selected' class to the clicked element
+            if (event.target.tagName === 'DIV') {
+                event.target.classList.add('selected');
+            }
+        });
+    </script>
+
+
+
+    
+</body>
+</html>

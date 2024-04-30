@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    /* Add some basic styling for clarity */
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 50px;
+    }
+  </style>
+  <title>Text Box Manipulation</title>
+</head>
+<body>
+  <label for="inputBox">Type Text:</label>
+  <input type="text" id="inputBox" size="8">
+  <button onclick="addText()">Add Text</button>
+  
+  <br><br>
+  
+  <label for="outputBox">Saved Text:</label>
+  <input type="text" id="outputBox" readonly>
+  <button onclick="removeText()">Remove Text</button>
+
+  <script>
+    function addText() {
+      var inputBox = document.getElementById("inputBox");
+      var outputBox = document.getElementById("outputBox");
+
+      if (inputBox.value.trim() !== "") {
+        // Append text to the output box and clear the input box
+        outputBox.value += inputBox.value + "\n";
+        inputBox.value = "";
+      }
+    }
+
+    function removeText() {
+      var outputBox = document.getElementById("outputBox");
+
+      // Get the selected text
+      var selectedText = outputBox.value.substring(outputBox.selectionStart, outputBox.selectionEnd);
+
+      // Remove the selected text from the output box
+      outputBox.value = outputBox.value.replace(selectedText, "");
+
+      // Clear selection
+      outputBox.selectionStart = outputBox.selectionEnd = 0;
+    }
+  </script>
+</body>
+</html>

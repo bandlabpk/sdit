@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Transfer</title>
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-6">
+                <label for="sourceContainer">Source Container:</label>
+                <div class="border p-2" id="sourceContainer" contenteditable="true"></div>
+                <button class="btn btn-primary mt-2" onclick="sendText()">Send Text</button>
+            </div>
+
+            <div class="col-md-6">
+                <label for="destinationContainer">Destination Container:</label>
+                <div class="border p-2" id="destinationContainer"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Include Bootstrap JS and Popper.js -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        var lastAddedText = "";
+
+        function sendText() {
+            var sourceContainer = document.getElementById('sourceContainer');
+            var destinationContainer = document.getElementById('destinationContainer');
+
+            var currentText = sourceContainer.innerText.trim();
+
+            if (currentText !== "") {
+                // Check if the current text is different from the last added text
+                if (currentText !== lastAddedText) {
+                    // Send each character one by one to the destination container
+                    for (var i = 0; i < currentText.length; i++) {
+                        setTimeout(function (char) {
+                            destinationContainer.innerText += char;
+
+                            // Scroll to the end of the destination container
+                            destinationContainer.scrollTop = destinationContainer.scrollHeight;
+                        }, i * 500, currentText[i]);
+                    }
+
+                    // Update the last added text
+                    lastAddedText = currentText;
+
+                    // Clear the source container
+                    sourceContainer.innerText = "";
+
+                    alert('Text sent successfully!');
+                } else {
+                    alert('Same text cannot be sent consecutively.');
+                }
+            } else {
+                alert('Please enter text in the source container.');
+            }
+        }
+    </script>
+
+</body>
+</html>

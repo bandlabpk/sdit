@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validations</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"  integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+</head>
+<body class="text-bg-primary">
+<div class="row m-5">
+    <div class="col-md-2"></div>
+        <div class="col-md-3">
+            <select name="lst1" id="lst1" size="10" class="w-100"></select>
+            <br><br>
+            <!--textbox 1-->
+            <input type="text" name="txt1" id="txt1" class="form-control border border-dark" autofocus  autocomplete="off"> 
+            <br>
+            <!--Btn 1-->
+            <input type="button" value="Add" id="btn1" class=" btn btn-outline-light w-100 "> 
+            <br><br>
+            <!--Btn 2-->
+            <input type="button" value="Remove" id="btn2" class=" btn btn-outline-light w-100 "> 
+        </div>
+            <div class="col-md-2 my-3">
+                 <!--Btn 5-->
+                <input type="button" value=">" id="btn5" class=" btn btn-outline-light w-100"><br><br>
+                 <!--Btn 6-->
+                <input type="button" value=">>" id="btn6" class=" btn btn-outline-light w-100"> <br><br>
+                 <!--Btn 7-->
+                <input type="button" value="<" id="btn7" class=" btn btn-outline-light w-100"><br><br>
+                 <!--Btn 8-->
+                <input type="button" value="<<" id="btn8" class=" btn btn-outline-light w-100"><br><br>
+            </div>
+            <div class="col-md-3">
+                <select name="lst2" id="lst2" size="10" class="w-100"></select>
+                <br><br>
+                <!--textbox 2-->
+                <input type="text" name="txt2" id="txt2" class="form-control border border-dark" autocomplete="off"> 
+                <br>
+                <!--Btn 3-->
+                <input type="button" value="Add" id="btn3" class=" btn btn-outline-light w-100 "> 
+                <br><br>
+                <!--Btn 4-->
+                <input type="button" value="Remove" id="btn4" class=" btn btn-outline-light w-100 "> 
+            </div>
+    <div class="col-md-2"></div>
+</div>
+
+<script> 
+    
+    // Add the Elements to the list box-1
+    document.getElementById("btn1").onclick=function add(){
+        var t1=document.getElementById("txt1");
+        var lst1=document.getElementById("lst1");
+        var input_val=t1.value.trim();  //Trim the space from text box
+
+        if(input_val !== ""){   
+            var al_ext= false; 
+            // Loop the list box
+            for( var i of lst1){       
+                if(i.text === t1.value){         
+                    var al_ext=true;
+                }
+            }
+      
+            // Checking the condition 
+        if( !al_ext){
+            var opt=document.createElement("option");
+            opt.text=t1.value;
+            lst1.add(opt); 
+            document.getElementById("txt1").value="";
+            document.getElementById("txt1").focus();
+        }
+        else{
+            alert("value existed");
+            t1.select();
+        }
+        }
+
+        else{
+            alert("Please Enter the value");
+            document.getElementById("txt1").focus();
+        }
+    };
+
+//    Removing the Selected elements from list box-1
+
+   document.getElementById("btn2").onclick=function remove(){
+    var lst1=document.getElementById("lst1");
+    if(lst1.selectedIndex !== -1){
+        lst1.remove(lst1.selectedIndex);
+        document.getElementById("txt1").focus();
+    }
+    else{
+        alert("value not selected");
+    }
+   }
+
+// Add the Elements to the list box-2
+
+document.getElementById("btn3").onclick=function add(){
+        var t2=document.getElementById("txt2");
+        var lst2=document.getElementById("lst2");
+        var input_val=t2.value.trim(); //Trim the space from text box
+
+        if(input_val !== ""){
+            var al_ext= false;
+           
+            // Loop the list box
+            for( var i of lst2){
+                if(i.text === t2.value){         
+                    var al_ext=true;
+                }
+            }
+         // Checking the condition 
+            if( !al_ext){
+                var opt=document.createElement("option");
+                opt.text=t2.value;
+                lst2.add(opt); 
+                document.getElementById("txt2").focus();
+                document.getElementById("txt2").value="";
+            }
+            else {
+
+                alert("value existed");
+                t2.select();
+            }
+         } 
+         else{
+            alert("please Enter the value");
+            document.getElementById("txt2").focus();
+            }
+       
+    
+    };
+
+//    Removing the Selected elements from list box-2
+
+document.getElementById("btn4").onclick=function remove(){
+    var lst2=document.getElementById("lst2");
+    if(lst2.selectedIndex !== -1){
+        lst2.remove(lst2.selectedIndex);
+        document.getElementById("txt2").focus();
+    }
+    else{
+        alert("value no selected");
+    }
+    };
+
+
+    // Copy the elements from lst1 to lst2
+
+        document.getElementById("btn5").onclick=function copy(){
+            var lst1=document.getElementById("lst1");
+            var indx=lst1.selectedIndex;
+            if(indx == -1){
+                alert("value must selected");
+        }
+        else {
+                  
+                var val=lst1[indx].value;
+                var lst2=document.getElementById("lst2");   
+                var opt=document.createElement("option");
+                opt.text=val;
+                opt.value=val;
+                for (let i of lst2 )
+                if(i.text === lst1.value){
+                    var al_ext=true;
+                   alert("Value Existed")
+                }
+                if(!al_ext){
+                    lst2.add(opt);
+                }
+            }
+        }
+        
+       // Move the elements from lst1 to lst2
+
+        document.getElementById("btn6").onclick=function Move(){
+            var lst1=document.getElementById("lst1");
+            var indx=lst1.selectedIndex;
+            var val=lst1[indx].value;
+            var lst2=document.getElementById("lst2");
+            var opt=document.createElement("option");
+            opt.text=val;
+            opt.value=val;
+            for (let i of lst2 )
+                if(i.text === lst1.value){
+                    var al_ext=true;
+                   alert("Value Existed")
+                }
+                if(!al_ext){
+                    lst2.add(opt);
+                    lst1.remove(indx);
+                    
+                }
+          
+       }
+        // Copy the elements from lst2 to lst1
+
+        document.getElementById("btn7").onclick=function copy(){
+            var lst2=document.getElementById("lst2");
+            var indx=lst2.selectedIndex;
+            if(indx == -1){
+                alert("value must selected");
+            }
+            else{
+            var val=lst2[indx].value;
+            var lst1=document.getElementById("lst1");
+            var opt=document.createElement("option");
+            opt.text=val;
+            opt.value=val;
+            for (let i of lst1 )
+                if(i.text === lst2.value){
+                    var al_ext=true;
+                   alert("Value Existed")
+                }
+                if(!al_ext){
+                    lst1.add(opt);
+                }
+           
+        }
+       }
+
+       // Move the elements from lst2 to lst1
+
+       document.getElementById("btn8").onclick=function Move(){
+            var lst2=document.getElementById("lst2");
+            var indx=lst2.selectedIndex;
+            var val=lst2[indx].value;
+            var lst1=document.getElementById("lst1");
+            var opt=document.createElement("option");
+            opt.text=val;
+            opt.value=val;
+            for (let i of lst1 )
+                if(i.text === lst2.value){
+                    var al_ext=true;
+                   alert("Value Existed")
+                }
+                if(!al_ext){
+                    lst1.add(opt);
+                    lst2.remove(indx);
+                    
+                }
+       }
+
+
+</script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>

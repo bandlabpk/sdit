@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hotel Room Booking</title>
+  <style>
+    /* Add your CSS styling here */
+  </style>
+</head>
+<body>
+
+  <h1>Hotel Room Booking</h1>
+
+  <form id="bookingForm">
+    <label for="startDate">Check-in Date:</label>
+    <input type="date" id="startDate" required>
+
+    <label for="endDate">Check-out Date:</label>
+    <input type="date" id="endDate" required>
+
+    <label for="roomType">Room Type:</label>
+    <select id="roomType" required>
+      <option value="ac">AC Room</option>
+      <option value="deluxe">Deluxe Room</option>
+      <option value="none">Standard Room</option>
+    </select>
+
+    <label for="numMembers">Number of Members:</label>
+    <input type="number" id="numMembers" min="4" required>
+
+    <button type="button" onclick="calculateTotal()">Calculate Total</button>
+
+    <p id="totalCost">Total Cost: $0</p>
+  </form>
+
+  <script>
+    function calculateTotal() {
+      // Retrieve values from form
+      const startDate = new Date(document.getElementById('startDate').value);
+      const endDate = new Date(document.getElementById('endDate').value);
+      const roomType = document.getElementById('roomType').value;
+      const numMembers = parseInt(document.getElementById('numMembers').value);
+
+      // Calculate the number of days
+      const numberOfDays = Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24));
+
+      // Calculate total cost based on room type and number of members
+      let costPerNight = 1000;
+      switch (roomType) {
+        case 'ac':
+          costPerNight = 2000; // Adjust this value based on your pricing
+          break;
+        case 'deluxe':
+          costPerNight = 3000; // Adjust this value based on your pricing
+          break;
+        case 'none':
+          costPerNight = 1500; // Adjust this value based on your pricing
+          break;
+      }
+
+      const totalCost = costPerNight * numberOfDays * numMembers;
+
+      // Display the total cost
+      document.getElementById('totalCost').textContent = `Total Cost: $${totalCost}`;
+    }
+  </script>
+
+</body>
+</html>

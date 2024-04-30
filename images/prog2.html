@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <title>Document</title>
+    <style>
+        .dark{
+            background-color: black;
+            color: white;
+        }
+        .light{
+            background-color: blue;
+            background-image: url(./student1.jpg);
+            background-repeat: repeat;
+            background-position: center center;
+           
+        }
+    </style>
+</head>
+<body>
+  <div class="row ">
+    <div class="col-4"></div>
+    <div class="col-4 p-5 text-align ">
+      <h1 style="text-align: center;" class="p-3">My world</h1>
+      <p style="text-align: justify;">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolorem ea vero quas placeat doloremque odio mollitia, facere pariatur corrupti rerum enim illum at accusantium fugiat quod molestias perferendis quaerat sapiente?
+      Placeat, earum veritatis. Corrupti, expedita illum. Repellendus fuga illo reiciendis eaque, aliquid asperiores nam, ad quam eligendi nulla unde corrupti sint. Doloremque voluptatibus consectetur aliquam assumenda placeat amet atque pariatur.
+      Voluptatem, alias? Similique velit corporis voluptatibus, ullam impedit deleniti facilis modi, ad obcaecati numquam vitae asperiores nesciunt accusantium exercitationem, quae deserunt sapiente distinctio dolorem? Ullam eius quia doloribus fugiat dolores.</p>
+      <button id="btn"  type="button" class="btn">Base class</button>
+      <button id="btn1"  type="button" class="btn">change</button>
+    </div>
+    <div class="col-4">
+     
+    </div>
+  </div>
+  <script>
+    document.getElementById("btn").onclick=function(){
+      document.getElementsByTagName("body")[0].className="dark"
+      document.getElementById("btn").classList.add("btn-outline-light");
+     
+
+
+    }
+    document.getElementById("btn1").onclick=function(){
+     
+      var x=document.getElementsByTagName("body");
+       x.style.color="white";
+       x.getElementsByTagName("body")[0].className="light"
+      x.getElementById("btn").classList.add("btn-outline-white");
+     
+
+    }
+
+  </script>
+   
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    
+</body>
+</html>
